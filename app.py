@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import numpy as np
 from tensorflow.keras.models import load_model
 import pandas as pd
+import subprocess
+from threading import Thread
 
 # Загрузка модели
 model = load_model('65epoch_lstm_model.keras')
@@ -28,7 +30,6 @@ def prepare_input(latitude, longitude, elevation, date):
 
     return input_data
 
-
 # Маршрут для прогнозирования
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -51,6 +52,14 @@ def predict():
         'TMIN': float(prediction[0][1])
     })
 
-# Запуск сервера
+# Функция для запуска Streamlit
+def run_streamlit():
+    # Запуск Streamlit
+    subprocess.run(["streamlit", "run", "streamlit_app.py", "--server.port", "8501"])
+
+# Запуск Streamlit в отдельном потоке
+Thread(target=run_streamlit).start()
+
+# Запуск сервера Flask
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
