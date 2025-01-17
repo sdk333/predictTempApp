@@ -52,13 +52,13 @@ def predict():
         'TMIN': float(prediction[0][1])
     })
 
-# Функция для запуска Streamlit
-def run_streamlit():
-    # Запуск Streamlit
-    subprocess.run(["streamlit", "run", "streamlit_app.py", "--server.port", "8501"])
+# # Функция для запуска Streamlit
+# def run_streamlit():
+#     # Запуск Streamlit
+#     subprocess.run(["streamlit", "run", "streamlit_app.py", "--server.port", "8501"])
 
-# Запуск Streamlit в отдельном потоке
-Thread(target=run_streamlit).start()
+# # Запуск Streamlit в отдельном потоке
+# Thread(target=run_streamlit).start()
 
 # Запуск сервера Flask
 if __name__ == '__main__':
